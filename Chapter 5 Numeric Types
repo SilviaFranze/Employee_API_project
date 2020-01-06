@@ -1,0 +1,378 @@
+
+#PYTHON EXPRESSION OPERATORS
+>>> 40+3.14   # Integer to float, float math/result
+43.14
+>>> 
+>>> int(3.1415)  # Truncates float to an integer 
+3
+>>> float(3)    # Converts integer to float
+3.0
+>>> 
+#NUMBERS IN ACTION
+#VARIABLES AND BASIC EXPRESSIONS
+>>> a = 3
+>>> b = 4       #Name created: not declared ahead of time
+
+>>> a+1, a-1   #Addition, and subtraction
+(4, 2)
+>>> b*3, b/2    # Multiplication (4*3), division (4/2, 3.X result)
+(12, 2.0)
+>>> a%2, b**2    # Modulus (remainder), power (4**2)
+(1, 16)
+>>> 2+ 4.0, 2.0 **b    # Mixed type conversions
+(6.0, 16.0)
+>>> 
+>>> b/2 +a   #Same as ((4/2)+3)
+5.0
+>>> b / (2.0 + a)     #Same as (4/(2.0+3))
+0.8
+>>> 
+
+#NUMERIC DISPLAY FORMAT
+>>> num = 1/3.0    
+>>> num   # Auto echoes
+0.3333333333333333
+>>> print(num)    # Print explicitly
+0.3333333333333333
+>>> '%e' %num       # String formatting expression     
+'3.333333e-01'
+>>> '%4.2f' % num   # Alternative floating point format
+'0.33'
+>>> '{0:4.2f}'.format(num)     #String formatting method: Python 2.6, 3.0, and later
+'0.33'
+
+#COMPARISONS: NORMAL AND CHAINED
+>>> 1<2    # Less than
+True
+>>> 2.0 >= 1   # Greather than or equal: mixed-type 1 converted to 1.0
+True
+>>> 2.0  == 2.0   # Equal value
+True
+>>> 2.0 != 2.0    # Not equal value
+False
+>>> X = 2
+>>> Y = 4
+>>> Z = 6
+>>> X<Y<Z     # Chained comparisons: range tests
+True
+>>> X<Y and Y<Z
+True
+ # The same equivalence holds for false results, and arbitrary  
+ # chain lenghts are allowed: 
+>>> X<Y>Z
+False
+>>> X<Y and Y>Z
+False
+>>> 1<2<3.0<4
+True
+>>> 1>2>3.0>4
+False
+ # Other non intuitive comparisons in chained tests
+>>> 1 == 2<3     #   Same as: 1 == 2 and 2 < 3
+False  #  Not same as: False < 3 (wich means 0 < 3, wich is true!) 
+>>> 
+>>> 1.1 + 2.2 == 3.3    # Shouldm't this be true?...
+False
+>>> 1.1+2.2
+3.3000000000000003    # Close to 3.3, but not exactly: limited precision
+>>> 
+>>> int(1.1+2.2) == int(3.3)   # OK if convert: see also round, floor, trunc ahead
+True          # Decimals and fractions (ahead) may help here too
+>>> 
+
+#SETS
+
+#[...]
+
+
+>>> x = set('abcde')
+>>> y = set ('bdxyz'0)
+SyntaxError: invalid syntax
+>>> y = set ('bdxyz')
+>>> x
+{'c', 'b', 'd', 'e', 'a'}
+>>> y
+{'b', 'd', 'z', 'y', 'x'}
+>>> x-y
+{'c', 'a', 'e'}
+>>> x|y
+{'c', 'b', 'd', 'z', 'y', 'e', 'x', 'a'}
+>>> x&y
+{'b', 'd'}
+>>> y-x
+{'y', 'z', 'x'}
+>>> x^y
+{'y', 'c', 'x', 'z', 'a', 'e'}
+>>> x>y, x<y
+(False, False)
+>>> 'e' in x
+True
+>>> 'e' in 'Camelot', 22 in [11,22,33]
+(True, True)
+
+#Esempio di ciclo for in un set
+
+>>> for item in set ('abc'): print(item * 3)
+
+ccc
+bbb
+aaa
+>>> for c in set ('abc'): print(c * 3)
+
+ccc
+bbb
+aaa
+>>> for o in set ('abc'): print(o * 3)
+
+ccc
+bbb
+aaa
+>>> 
+>>> for gatto in set ('caccapuzza'): print (gatto*3)for c in set ('abc'): print(c * 3)
+SyntaxError: invalid syntax
+>>> for gatto in set ('caccapuzza'): print (gatto*3)
+
+ccc
+uuu
+zzz
+ppp
+aaa
+>>> c = set ('caccapuzza')
+>>> c
+{'c', 'u', 'z', 'p', 'a'}
+>>> 
+>>> y
+{'b', 'd', 'z', 'y', 'x'}
+>>> x
+{'c', 'b', 'd', 'e', 'a'}
+>>> z = x.intersection(y)
+>>> z
+{'b', 'd'}
+>>> z.add('SPAM')
+>>> z
+{'b', 'SPAM', 'd'}
+>>> z.update(set(['X','Y']))
+>>> z
+{'b', 'd', 'X', 'Y', 'SPAM'}
+>>> z.remove('b')
+>>> z
+{'d', 'X', 'Y', 'SPAM'}
+
+
+>>> for trippa in set ('schifovomito'): print (trippa*3)
+
+iii
+ccc
+hhh
+ooo
+vvv
+fff
+ttt
+mmm
+sss
+>>> S = set([1,2,3])
+>>> S | set ([3,4])
+{1, 2, 3, 4}
+>>> S | [3,4]
+Traceback (most recent call last):
+  File "<pyshell#42>", line 1, in <module>
+    S | [3,4]
+TypeError: unsupported operand type(s) for |: 'set' and 'list'
+>>> S | {'7','8','9'}
+{1, 2, 3, '7', '9', '8'}
+>>> S | {7,8,9}
+{1, 2, 3, 7, 8, 9}
+>>> S.union ([3,4])
+{1, 2, 3, 4}
+>>> S.intersection((1,3,5))
+{1, 3}
+>>> S.issubset(range(-5,5))
+True
+>>> set ([1,2,3,4])
+{1, 2, 3, 4}
+>>> set ('spam')
+{'s', 'm', 'p', 'a'}
+>>> {1,2,3,4}
+{1, 2, 3, 4}
+>>>  S = {'s','a', 'p', 'm'}
+ 
+SyntaxError: unexpected indent
+>>> 
+>>> S = {'s','a', 'p', 'm'}
+>>> S
+{'s', 'm', 'p', 'a'}
+>>> S.add('alot')
+>>> S
+{'alot', 'p', 'm', 's', 'a'}
+>>> S1 = {1,2,3,4}
+>>> S1 & {1,3}
+{1, 3}
+>>> {1,5,3,6} | S1
+{1, 2, 3, 4, 5, 6}
+>>> S1 - {1,3,4}
+{2}
+>>> S1 > {1,3}
+True
+>>> S1 - {1,2,3,4}
+set()
+>>> type({})
+<class 'dict'>
+>>> S = set ()
+>>> S.add(1.23)
+>>> S
+{1.23}
+>>> {1,2,3} | [3,4]
+Traceback (most recent call last):
+  File "<pyshell#67>", line 1, in <module>
+    {1,2,3} | [3,4]
+TypeError: unsupported operand type(s) for |: 'set' and 'list'
+>>> {1,2,3}.union([3,4])
+{1, 2, 3, 4}
+>>> {1,2,3}.union({3,4})
+{1, 2, 3, 4}
+>>> {1,2,3}.union(set([3,4]))
+{1, 2, 3, 4}
+>>> {1,2,3}.intersection((1,3,5))
+{1, 3}
+>>> {1,2,3}.issubset(range(-5,5))
+True
+>>> S
+{1.23}
+>>> S.add ([1,2,3)]
+SyntaxError: invalid syntax
+>>> S.add ([1,2,3])
+Traceback (most recent call last):
+  File "<pyshell#75>", line 1, in <module>
+    S.add ([1,2,3])
+TypeError: unhashable type: 'list'
+>>> S.add({'a': 1})
+Traceback (most recent call last):
+  File "<pyshell#76>", line 1, in <module>
+    S.add({'a': 1})
+TypeError: unhashable type: 'dict'
+>>> S.add ((1,2,3))
+>>> S
+{1.23, (1, 2, 3)}
+>>> S.add {4,5,6}
+SyntaxError: invalid syntax
+>>> S | {(4,5,6),(1,2,3)}
+{1.23, (4, 5, 6), (1, 2, 3)}
+>>> (1,2,3) in S
+True
+>>> (1,4,3) in S
+False
+>>> {x**2 for x in [1,2,3,4]}
+{16, 1, 4, 9}
+>>> {cacca**2 for cacca in [1,2,3,4]}
+{16, 1, 4, 9}
+>>> {x for x in 'spam'}
+{'s', 'm', 'p', 'a'}
+>>> {c*4 for x in 'spam'}
+Traceback (most recent call last):
+  File "<pyshell#86>", line 1, in <module>
+    {c*4 for x in 'spam'}
+  File "<pyshell#86>", line 1, in <setcomp>
+    {c*4 for x in 'spam'}
+TypeError: unsupported operand type(s) for *: 'set' and 'int'
+>>> {c*4 for c in 'spam'}
+{'aaaa', 'pppp', 'ssss', 'mmmm'}
+>>> {vacca*4 for vacca in 'spahammamuiuiu'}
+{'hhhh', 'ssss', 'mmmm', 'pppp', 'aaaa', 'iiii', 'uuuu'}
+>>> S = {c*4 for c in 'spam'}
+>>> S
+{'aaaa', 'pppp', 'ssss', 'mmmm'}
+>>> S | {'mmmm','xxxx'}
+{'pppp', 'ssss', 'aaaa', 'xxxx', 'mmmm'}
+>>> S&{'mmmm','xxxx'}
+{'mmmm'}
+>>> L = [1,2,1,3,2,4,5]
+>>> set (L)
+{1, 2, 3, 4, 5}
+>>> L = list(set(L))
+>>> L
+[1, 2, 3, 4, 5]
+>>> list(set(['yy','cc','aa','xx','dd','aa']))
+['cc', 'yy', 'aa', 'xx', 'dd']
+>>> list(set(['yy','cc','aa','xx','dd','aa']))
+['cc', 'yy', 'aa', 'xx', 'dd']
+>>> set ([1,3,5,7])- set([1,2,4,5,6])
+{3, 7}
+>>> set ('abcdefg') -set ('abdghij')
+{'c', 'f', 'e'}
+>>> 
+>>> set ('spam') - set (['h', 'a', 'm'])
+{'s', 'p'}
+>>> set (dir(bytes)) - set (dir(bytearray))
+{'__getnewargs__'}
+>>> set (dir(bytearray)) - set (dir(bytes))
+{'extend', 'append', 'clear', 'insert', '__alloc__', 
+'__setitem__', '__iadd__', '__imul__', 'reverse', 'remove', 
+'copy', 'pop', '__delitem__'}
+>>> 
+>>> L1, L2 = [1,3,5,2,4], [2,5,3,4,1]
+>>> L1 == L2
+False
+>>> L1
+[1, 3, 5, 2, 4]
+>>> L2
+[2, 5, 3, 4, 1]
+>>> set (L1) == set (L2)
+True
+
+>>> sorted (L1) == sorted (L2)
+True
+>>> 'spam' == 'asmp', set ('spam') == set ('asmp'), sorted ('spam') == sorted ('asmp')
+(False, True, True)
+>>> engineers = {'bob','sue','ann','vic'}
+>>> managers = {'tom', 'sue'}
+>>> 'bob' in engineers # is bob an engineer?
+True
+>>> engineers & managers
+{'sue'}    # who is both engineer and manager?
+  
+>>> engineers | managers  # all people in either category
+{'bob', 'sue', 'ann', 'vic', 'tom'}
+>>> engineers - managers
+{'bob', 'vic', 'ann'}  # enineers who are not managers
+>>> managers - engineers # managers who are not engineers
+{'tom'}
+>>> engineers>managers # are all manager engineer? (superset)
+False
+>>> {'bob','sue'} < engineers  # are both engineers? (subset)
+True
+>>> (managers| engineers) > managers  # all people is a superset of managers
+True
+>>> 
+>>> managers ^ engineers    # who is in one but not both?
+{'bob', 'tom', 'vic', 'ann'}
+>>> 
+>>> (managers|engineers) - (managers^engineers)   # intersection!
+{'sue'}
+>>> 
+
+# CICLO FOR PER VINO
+
+inizio = 0
+fine = 100
+vin = 'vin'
+
+for x in range (inizio, fine):
+    vin = vin + 'o'
+    print (vin)
+
+# CICLO FOR PER VINO E BIRRA
+
+vin = 'vin'
+birr = 'birr'
+for x in range (0, 5):
+    vin = vin + 'o'
+    birr = birr + ('a' * 2)
+    print (vin)
+    print (birr)
+for x in range (0, 10):
+    birr = birr + ('a' * 2)
+    print (birr)
+
+
+
+

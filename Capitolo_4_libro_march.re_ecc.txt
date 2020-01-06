@@ -1,0 +1,575 @@
+import re
+test = re.match('^ciao(.*)\t*(.*)Roma$', 'ciao Silvia   sono andata a Roma')
+print(test.group(1))
+
+test2 = re.match('[/:](.*)[/:](.*)[/:](.*)', '/usr/home:lumberjack')
+print(test2.groups())
+
+LISTS
+SEQUENCE OPERATIONS
+
+L = [123,'aspè', 1.23]
+print(len(L))
+
+print(L[0])
+
+print(L[:-1])
+
+print(L + [4, 5, 6])
+
+print(L * 2)
+
+print(L)
+
+TYPE-SPECIFIC OPERATIONS
+
+L.append('NI')
+>>> L
+[123, 'aspè', 1.23, 'NI']
+>>>
+>>>
+>>> L.pop(2)
+1.23
+>>> L
+[123, 'aspè', 'NI']
+>>> L.pop(2)
+'NI'
+>>> L
+[123, 'aspè']
+>>> del L[0]
+>>> L
+['aspè']
+
+BOUNDS CHECKING
+
+>>> M = ['bb', 'aa', 'cc']
+>>> M.sort()
+>>> M
+['aa', 'bb', 'cc']
+>>> M.reverse()
+>>> M
+['cc', 'bb', 'aa']
+>>>
+
+NESTING
+>>> M = [[1,2,3],
+     [4,5,6],
+     [7,8,9]]
+>>> M
+[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+>>> M[1]
+[4, 5, 6]
+>>> M[1][2]
+6
+>>>
+COMPREHENSIONS
+
+col2 = [row[1] for row in M]
+>>> col2
+[2, 5, 8]
+>>> M
+[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+>>> [row[1] + 1 for row in M]
+[3, 6, 9]
+>>> #it adds 1 to each item in column 2
+>>>
+>>> [row[1] for row in M if row[1] % 2 = 0]
+SyntaxError: invalid syntax
+>>> [row[1] for row in M if row[1] % 2 == 0]
+[2, 8]
+>>> #Filter out odd items
+
+>>> diag = [M[i][i] for i in [0,1,2]]
+>>> diag
+[1, 5, 9]
+>>> #we have collected a diagonal from matrix
+>>> doubles = [c*2 for c in 'spam'] #repeat characters in a string
+>>> doubles
+['ss', 'pp', 'aa', 'mm']
+>>>
+>>> list(range(4))
+[0, 1, 2, 3]
+>>> list(range(-6,7,2))
+[-6, -4, -2, 0, 2, 4, 6]
+>>> #other roles of comprehension syntax (it's not just for making lists today
+>>> #for example it can also be used to create generators that produces lists on demand
+>>> G = (sum(row) for row in M)
+>>> #create a generator of row sums
+>>> next(G)
+6
+>>> next(G)  ## run the iteration protocol next()
+15
+
+>>> next(G)
+24
+
+
+>>> list(map(sum, M)
+     )
+[6, 15, 24]
+>>> #Map sum over items in M
+>>>
+>>> {sum(row) for row in M}
+{24, 6, 15}
+>>> #it creates a set of row sums
+>>> {i : sum(M[i]) for i in range (3)}
+{0: 6, 1: 15, 2: 24}
+>>> #it creates a key/value table of row sums
+>>>
+>>>
+>>> [ord(x) for x in 'spaam']
+[115, 112, 97, 97, 109]
+>>> #list of charactersordinals
+>>>
+>>> {ord(x) for x in 'spaam'}
+{112, 97, 115, 109}
+>>> #sets remove duplicates
+>>> {x: ord(x) for x in 'spaam'}
+{'s': 115, 'p': 112, 'a': 97, 'm': 109}
+>>> #dictionary keys are unique
+>>> {x: ord(x) for x in 'caccapuzza'}
+{'c': 99, 'a': 97, 'p': 112, 'u': 117, 'z': 122}
+>>> (ord(x) for x in 'caccapuzza') #generator of values
+<generator object <genexpr> at 0x036AAEB0>
+>>> (ord(x) for x in 'spaam')
+<generator object <genexpr> at 0x036AAF30>
+
+DICTIONARIES
+
+MAPPING OPERATIONS
+>>> D = {'food': 'Spam', 'quantity': 4, 'color': 'pink'}
+#The dictionary index operation uses the same syntax as that used for sequences, but
+# the item in the square brackets is a key, not a relative position
+>>> D['food']
+'Spam'
+>>> #fetch the value of key 'food'
+>>>
+>>> D['quantity'] +=1
+>>> #add 1 to 'quantity' value
+>>> D
+{'food': 'Spam', 'quantity': 5, 'color': 'pink'}
+
+
+>> > D = {}
+>> > D['name'] = 'Bob'  # Create keys by assignment
+>> > D['job'] = 'dev'
+>> > D['age'] = 40
+>> > D
+{'name': 'Bob', 'job': 'dev', 'age': 40}
+>> > D['name']
+'Bob'
+>> > print(D['name'])
+Bob
+
+>>> bob1
+{'name': 'Bob', 'job': 'dev', 'age': 40}
+>>> #keywords
+>>>
+>>> bob2 = dict(zip(['name','job','age'], ['Bob', 'dev', 40]))
+>>> bob2
+{'name': 'Bob', 'job': 'dev', 'age': 40}
+>>> #zipping
+
+NESTING REVISITED
+>>> rec = {'name': {'first': 'Bob', 'last': 'Smith'},
+       'jobs': ['dev', 'mgr'],
+       'age': 40.5}
+>>> rec['name']
+{'first': 'Bob', 'last': 'Smith'}
+>>> # 'name' is a nested dictionary
+>>> rec['name']['last']
+'Smith'
+>>> # index the nested dictionary
+>>>
+>>> rec['jobs']
+['dev', 'mgr']
+>>> # 'jobs' is a nested list
+>>> rec['jobs'][-1]
+'mgr'
+>>> # index the nested list
+>>> rec['jobs'].append('janitor')
+>>> # expand Bob's job description in place
+>>> rec
+{'name': {'first': 'Bob', 'last': 'Smith'}, 'jobs': ['dev', 'mgr', 'janitor'], 'age': 40.5}
+
+MISSING KEYS: IF TESTS
+>> > D = {'a': 1, 'b': 2, 'c': 3}
+>> > D
+{'a': 1, 'b': 2, 'c': 3}
+>> > D['e'] = 99
+>> > D
+{'a': 1, 'b': 2, 'c': 3, 'e': 99}
+>> >  # Assigning new keys grows dictionaries
+
+>> > D['f']
+Traceback(most
+recent
+call
+last):
+File
+"<pyshell#174>", line
+1, in < module >
+D['f']
+KeyError: 'f'
+>> >  # Referencing a nonexistent key is an error
+>> > 'f' in D
+False
+>> > if not 'f' in D:
+    print('missing')
+
+missing
+>> >  # Python'sole selection statement
+>>>
+>>> value = D.get('x', 0)  # Index but with a default
+>>> value
+0
+>>> value = D['x'] if 'x' in D else 0  # If/else expression form
+>>> value
+0
+>>>
+SORTING KEYS: FOR LOOPS
+>> > D = {'d': 4, 'a': 1, 'c': 3, 'b': 2}
+>> > D
+{'d': 4, 'a': 1, 'c': 3, 'b': 2}
+>> > Ks = list(D.keys())
+>> > Ks
+['d', 'a', 'c', 'b']  # Unordered keys list
+>> > Ks.sort()  # Sorted keys list
+>> > Ks
+['a', 'b', 'c', 'd']
+>> >
+>> > for key in Ks:          # iterate though sorted keys
+    print(key, '=>', D[key])
+
+a = > 1
+b = > 2
+c = > 3
+d = > 4
+
+ The same thing done in one step in the newer Python
+>> > D
+{'d': 4, 'a': 1, 'c': 3, 'b': 2}
+>> > for key in sorted(D);
+SyntaxError: invalid
+syntax
+>> > for key in sorted(D):
+    print(key, '=>', D[key])
+
+a = > 1
+b = > 2
+c = > 3
+d = > 4
+>> >
+>> > for c in 'spam':
+    print(c.upper())
+
+S
+P
+A
+M
+>> >
+>> > x = 4
+>> > while x > 0:
+    print('spam!' * x)
+    x -= 1
+
+spam!spam!spam!spam!
+spam!spam!spam!
+spam!spam!
+spam!
+>> >
+
+ITERATIONS AND OPTIMIZATIONS
+Any list comprehension expression like this one,
+wich computes the squares of a list of numbers:
+>>> squares = [x**2 for x in [1,2,3,4,5]]
+>>> squares
+[1, 4, 9, 16, 25]
+>>>
+can always be coded as an equivalent "for" loop that builds the result list
+manually by appending as it goes
+>> > squares = []
+>> > for x in [1, 2, 3, 4, 5]:   # This is what a list comprehension does
+    squares.append(x ** 2)       # Both run the iteration protocol internally
+
+>> > squares
+[1, 4, 9, 16, 25]
+>>>
+
+TUPLES
+>> > T = (1, 2, 3, 4)  # A 4-item tuple
+>> > len(T)   # lenght
+4
+>> > T + (5, 6)  # Concatenation
+(1, 2, 3, 4, 5, 6)
+>> > T
+(1, 2, 3, 4)
+>> > T[0]   # Indexing, slicing and more
+1
+>> > T.index(4)    # Tuple methods: 4 appears at offset 3
+3
+>> > T.count(4)  # 4 appears once
+1
+>> > T[0] = 2   # Tuples are immutable
+Traceback(most recent call last): File "<pyshell#14>", line 1, in < module >
+T[0] = 2
+TypeError: 'tuple' object does not support item assignment
+
+>> > T = (2,) + T[1:]  # Make nw tuple for a new value
+>> > T
+(2, 2, 3, 4)
+>> >
+>> > T = 'spam', 3.0, [11, 22, 33]
+>> > T[1]
+3.0
+>> > T[2][1]
+22
+>> > T.append(4)
+Traceback(most recent call last): File "<pyshell#23>", line 1, in < module >
+T.append(4)
+AttributeError: 'tuple' object has no attribute 'append'
+>> > T
+('spam', 3.0, [11, 22, 33])
+>> >
+
+FILES
+>>> f = open('data.txt', 'w')  #Make a new file in output mode ('w' is write)
+>>> f.write ('Hello\n')    # Write strings of characters to it
+6
+>>> f.write('World\n')   # Return number of items written in Python 3.X
+6
+>>> f.close()    # Close to flush output buffers to disk
+>>>
+>> > f = open('data.txt')   # 'r' (read) is the default processing mode
+>> > f
+< _io.TextIOWrapper name = 'data.txt' mode = 'r' encoding = 'cp1252' >
+>> > text = f.read()   # Read entire file into a string
+>> > text
+'Hello\nWorld\n'
+>> > print(text)   # print interprets control characters
+Hello
+World
+>> > text.split()    # File content is always a string
+['Hello', 'World']
+
+>> >
+>> > for line in open('data.txt'): print(line)
+
+Hello
+
+World
+
+>> >  # for example we can have a preview we run a dir call on any open file and a help on any of
+>>># the method names that come back
+
+>> > dir(f)
+['_CHUNK_SIZE', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__',
+ '__exit__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__',
+ '__init_subclass__', '__iter__', '__le__', '__lt__', '__ne__', '__new__', '__next__', '__reduce__', '__reduce_ex__',
+ '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_checkClosed', '_checkReadable',
+ '_checkSeekable', '_checkWritable', '_finalizing', 'buffer', 'close', 'closed', 'detach', 'encoding', 'errors',
+ 'fileno', 'flush', 'isatty', 'line_buffering', 'mode', 'name', 'newlines', 'read', 'readable', 'readline', 'readlines',
+ 'reconfigure', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'write_through', 'writelines']
+
+>>> help(f.seek)
+Help on built-in function seek:
+
+seek(cookie, whence=0, /) method of _io.TextIOWrapper instance
+    Change stream position.
+
+    Change the stream position to the given byte offset. The offset is
+    interpreted relative to the position indicated by whence.  Values
+    for whence are:
+
+    * 0 -- start of stream (the default); offset should be zero or positive
+    * 1 -- current stream position; offset may be negative
+    * 2 -- end of stream; offset is usually negative
+
+    Return the new absolute position.
+
+BINARY BITES FILES
+>>> import struct
+>>> packed = struct.pack('>i4sh', 7, b'spam', 8)  #  Create packed binary data
+>>> packed   # 10 bites, not objects or text
+b'\x00\x00\x00\x07spam\x00\x08'
+>>> file = open('data.bin', 'wb')  # Open binary output file
+>>> file.write (packed)   #  Write packed binary data
+10
+>>> file.close()
+>>>
+>>> data = open('data.bin', 'rb').read()    # Open/read binary data file
+>>> data    # 10 bites, unaltered
+b'\x00\x00\x00\x07spam\x00\x08'
+>>> data [4:8]    # Slice bites in the middle
+b'spam'
+>>> list(data)     # A sequence of 8-bit bytes
+[0, 0, 0, 7, 115, 112, 97, 109, 0, 8]
+>>> struct.unpack('>i4sh', data)    # Unpack into objects again
+(7, b'spam', 8)
+>>>
+
+UNICODE TEXT FILES
+>>> S = 'sp\xc4m'  # Non-ASCII Unicode text
+>>> S 
+'spÄm'
+>>> S[2]        # Sequence of characters
+'Ä'
+>>> file = open('unidata.txt', 'w', encoding='utf-8')  #  Write/encode UTF-8 text
+>>> file.write(S)    # 4 charcters written
+4
+>>> file.close()
+>>> text = open('unidata.txt', encoding='utf-8').read()  #  Read/decode UTF-8 text
+>>> text
+'spÄm'
+>>> len(text)   #  4 chars (code points)
+4
+>>> 
+>>> raw = open('unidata.txt', 'rb').read()      # Read raw encoded bytes
+>>> raw
+b'sp\xc3\x84m'
+>>> len(raw)      #Really 5 bites in UTF-8
+
+5 
+>>> text.encode('utf-8')            # Manual encode to bytes
+b'sp\xc3\x84m'
+>>> raw.decode('utf-8')            # Manual decode to str
+'spÄm'
+>>> 
+>>> text.encode('latin-1')          #Bytes differ in others
+b'sp\xc4m'
+>>> text.encode('utf-16')
+b'\xff\xfes\x00p\x00\xc4\x00m\x00'
+>>> len(text.encode('latin-1')), len(text.encode('utf-16'))
+(4, 10)
+>>> b'\xff\xfes\x00p\x00\xc4\x00m\x00'.decode('utf-16')     # But same string decoded
+'spÄm'
+>>> 
+OTHER CORE TYPES
+>>> X = set('spam')     # Make a set out of a sequence
+>>> Y = {'h', 'a', 'm'}    # Make a set with literals
+>>> X, Y
+({'m', 'p', 's', 'a'}, {'m', 'a', 'h'})
+>>> X & Y #Intersection
+{'m', 'a'}
+>>> X|Y   # Union
+{'s', 'a', 'm', 'p', 'h'}
+>>> X - Y       # Difference
+{'p', 's'}
+>>> X > Y   # Superset
+False
+>>> {n**2 for n in [1,2,3,4]}   #Set comprehensions
+{16, 1, 4, 9}
+>>> 
+>>> list(set([1,2,1,3,1]))     # Filtering out duplicates (possibly reordered)
+[1, 2, 3]
+>>> set('spam') -set('ham')    # Finding differences in collections
+{'p', 's'}
+>>> set('spam') == set ('aspm')   # Order-neutral equality ('spam'=='aspm' False)
+True
+>>> 
+>>> 'p' in set ('spam'), 'p' in 'spam', 'ham' in ['eggs','spam', 'ham']
+(True, True, True)
+>>> 
+>>> 
+>>> 1/3     # Floating-point
+0.3333333333333333
+>>> (2/3)+(1/2)
+1.1666666666666665
+>>> 
+>>> import decimal    # Decimals: fixed precision
+>>> d = decimal.Decimal('3.141')
+>>> d +1
+Decimal('4.141')
+>>> decimal.getcontext().prec = 2
+>>> decimal.Decimal('1.00') / decimal.Decimal('3.00')
+Decimal('0.33')
+>>> 
+>>> from fractions import Fraction    # Fractions: numerator + denominator
+>>> f = Fraction(2,3)
+>>> f + 1
+Fraction(5, 3)
+>>> f + Fraction (1,2)
+Fraction(7, 6)
+>>> 1>2, 1<2      # Booleans
+(False, True)
+>>> bool('Spam')   # Object's Boolean value
+True
+X = None     # None placeholder
+>>> print(X)
+None
+>>> L = [None] *100   # Initialize a list of 100 Nones
+>>> L
+[None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None, None, None, None, None, 
+None, None, None, None, None, None]
+>>> 
+
+HOW TO BREAK YOUR CODE'S FLEXIBILITY
+>>> type(L)   # 3.X: types are classes and vice versa
+<class 'list'>
+>>> type(type(L))     # In chapter 32 more on class types
+<class 'type'>
+>>> 
+>>> if type(L) == type([]):        # Type testing...
+	print('yes')
+
+	
+yes
+>>> if type (L) == list:        # Using the type name
+	print('yes')
+
+	
+yes
+>>> if isinstance (L, list):        # Object-oriented tests
+	print('yes')
+
+	
+yes
+>>> 
+
+
+USER-DEFINED CLASSES
+
+>>> class Worker:
+	def __init__(self, name, pay):   # Initialize when created
+		self.name = name         # Self is the new object
+		self.pay = pay
+	def lastName(self):
+		return self.name.split()[-1]    # Split string on blanks
+	def giveRaise(self, percent):
+		self.pay *= (1.0 + percent)     # Update pay in place
+
+>>> bob = Worker('Bob Smith', 50000)      # Make two instances
+>>> sue = Worker('Sue Jones', 60000)      # Each has name and pay attrs
+>>> bob.lastName()    # Call method: bob is self
+'Smith'
+>>> sue.lastName()     # sue is the self subject
+'Jones'
+>>> sue.giveRaise(.10)    # Update sue's pay
+>>> sue.pay
+66000.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

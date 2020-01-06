@@ -1,0 +1,23 @@
+
+#TRIPLE QUOTES CODE MULTILINE BLOCK STRINGS
+
+>>> mantra = '''Always look
+on the bright
+side of life.'''
+>>> mantra
+'Always look\non the bright\nside of life.'
+>>> print (mantra)
+Always look
+on the bright
+side of life.
+
+#BASIC OPERATIONS
+
+
+>>> len ('abc') # Lenght: number of items
+3
+>>> 'abc' + 'def'  #Concatenation: a new string
+'abcdef'
+>>> 'Ni!' *4    #Repetition: like 'Ni!' + 'Ni!' + ...
+'Ni!Ni!Ni!Ni!'
+>>> 
